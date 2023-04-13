@@ -43,7 +43,7 @@ interface UserApiService {
      * HTTP method
      */
     @GET("USER/{id}")
-    suspend fun getUsers(@Path("id") id: String) : User
+    suspend fun getUser(@Path("id") id: String) : User
 }
 
 /**

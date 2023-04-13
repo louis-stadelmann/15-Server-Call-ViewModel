@@ -25,6 +25,12 @@ class MainActivity : AppCompatActivity() {
         // Remplacer this par viewLifecycleOwner dans un viewModel
         userViewModel.users.observe(this) {
             Log.d("USERS: ", it.toString())
+            // Recuperation du premier user
+            userViewModel.getUser(it[0].id.toString())
+        }
+
+        userViewModel.currentUser.observe(this) {
+            Log.d("USER: ", it.toString())
         }
     }
 }

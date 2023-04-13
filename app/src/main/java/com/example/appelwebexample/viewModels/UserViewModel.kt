@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
 
     val users = MutableLiveData<List<User>>()
+    val currentUser = MutableLiveData<User>()
 
     // The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<String>()
@@ -19,6 +20,17 @@ class UserViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 users.value = UserApi.retrofitService.getUsers()
+                _status.value = "Success:  Users retrieved"
+            } catch (e: Exception) {
+                _status.value = "Failure: ${e.message}"
+            }
+        }
+    }
+
+    fun getUser(id: String) {
+        viewModelScope.launch {
+            try {
+                currentUser.value = UserApi.retrofitService.getUser(id)
                 _status.value = "Success:  Users retrieved"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
